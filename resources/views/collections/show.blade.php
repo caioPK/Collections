@@ -1,27 +1,25 @@
 @extends('layouts.full')
 
 @section('content')
-    <h1>Showing </h1>
 
-    <div class="jumbotron text-center">
-        <h2>COLEÇÃO </h2>
+        <div class="">
 
+            <div class=" uk-flex-center uk-flex-1 uk-grid-small uk-text-center"uk-grid>
 
-        @foreach($videos as $canal)
-            @foreach($canal as $video)
+                @foreach($videos as $canal)
+                    @foreach($canal as $video)
 
-                <h4 id="title">
+                        <div class="">
 
-                    <a href='{{url('collections/video')}}/{{$video->id->videoId}}'>
-                        {{$video->snippet->title}}    -  data: {{$video->snippet->publishedAt}}<br>
-                        <img src="https://i4.ytimg.com/vi/{{$video->id->videoId}}/hqdefault.jpg"/>
-                    </a>
-                </h4>
+                            <a href='{{url('collections/video')}}/{{$video->id->videoId}}'>
+                                <img src="https://i4.ytimg.com/vi/{{$video->id->videoId}}/hqdefault.jpg" width="300"><br></a>
+                        </div>
+                    @endforeach
+                @endforeach
 
+            </div>
+        </div>
 
-            @endforeach
-        @endforeach
-    </div>
 
 
 @endsection
