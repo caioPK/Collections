@@ -93,6 +93,8 @@ class CollectionController extends Controller
             }
         }
 
+        $nomes = Collection::where('idUser', Auth::user()->id)->get();
+
         $lista = str_replace(',,','', $collection->canais);
         $canais = explode(',',$lista);
 
@@ -100,7 +102,8 @@ class CollectionController extends Controller
         $i=0;
         foreach ($canais as $canal){
             $canal = DB::table('channels')->where('idCanal', $canal)->value('url');
-            $videoList = Youtube::listChannelVideos($canal, 40);
+
+            $videoList = Youtube::listChannelVideos($canal, 50);
             //fazer uma colleção dos videos e a flag de visto
             $videos[$i]=$videoList;
             $i++;
@@ -109,7 +112,7 @@ class CollectionController extends Controller
 
 
         //return View::make('collections.show')->with('videos',$videos);
-        return \view('collections.show',['videos'=>$videos]);
+        return \view('collections.show',['videos'=>$videos, 'nomes'=>$nomes]);
     }
 
     /**

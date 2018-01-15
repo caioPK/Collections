@@ -1,13 +1,19 @@
 @extends('layouts.full')
 
+@section('menu')
+    @foreach($collec as $key => $value)
+        <li ><a class="uk-text-uppercase" href="{{url('collections/')}}/{{$value->idCollec}}">{{$value->nomeCollec}}</a></li>
+    @endforeach
+@endsection
+
 @section('content')
 
     <!-- will be used to show any messages -->
     @if (Session::has('message'))
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
-    <div class="pure-u-1-1">
-        <table class="pure-table pure-table-horizontal">
+    <div >
+        <table class="uk-table uk-table-striped">
             <thead>
             <tr>
                 <th>ID</th>
