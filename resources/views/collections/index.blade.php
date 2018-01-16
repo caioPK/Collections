@@ -1,5 +1,6 @@
 @extends('layouts.full')
 
+
 @section('menu')
     @foreach($collec as $key => $value)
         <li ><a class="uk-text-uppercase" href="{{url('collections/')}}/{{$value->idCollec}}">{{$value->nomeCollec}}</a></li>
@@ -12,7 +13,7 @@
     @if (Session::has('message'))
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
-    <div >
+    <div class="uk-padding-large">
         <table class="uk-table uk-table-striped">
             <thead>
             <tr>
@@ -38,6 +39,11 @@
                         <a class="btn btn-small btn-info" href="{{ URL::to('collections/' . $value->idCollec . '/edit') }}">
                             Editar Coleção
                         </a>
+
+                        {{ Form::open(array('url' => 'collections/' . $value->idCollec, 'class' => 'pull-right')) }}
+                            {{ Form::hidden('_method', 'DELETE') }}
+                            {{ Form::submit('Deletar', array('class' => 'btn btn-warning')) }}
+                        {{ Form::close() }}
 
                     </td>
                 </tr>

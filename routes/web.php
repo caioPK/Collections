@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+Route::post('collections/url','CollectionController@url');
+Route::get('collections/url',function(){
+    return view('collections.url');
+});
+
+
 Route::resource('collections','CollectionController');
 
 
@@ -25,6 +33,8 @@ Route::resource('collections/video','assistidosController',['names'=>[
 ]]);
 
 
+Route::get('xmls/editar','xmlController@editar');
+Route::post('xmls/editar','xmlController@update');
 
 Route::resource('xmls','xmlController',['except'=>[
     'index'

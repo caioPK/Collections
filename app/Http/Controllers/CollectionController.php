@@ -129,7 +129,8 @@ class CollectionController extends Controller
         $nomes=[];
         $i=0;
         foreach ($canais as $canal){
-            $nomes[$i] = DB::table('channels')->where('idCanal', $canal)->value('nomeCanal');
+            $nomes[$i] = array('nome'=>DB::table('channels')->where('idCanal', $canal)->value('nomeCanal'),
+                                'id'=>$canal);
             $i++;
         }
 
@@ -145,14 +146,45 @@ class CollectionController extends Controller
      */
     public function update(Request $request, Collection $collection)
     {
+        //procura os canais pelo nome e monta nova lista de canais
+        $removidos = explode('@',$request->get('hlista'));
+        foreach ($removidos as $removido){
+            $lista = str_replace($removido.',','', $collection->canais);
+        }
+
 
         $collection->idUser     =   Auth::user()->id;
         $collection->nomeCollec =   $request->get('name');
-        $collection->canais     =   $request->get('hlista');
+        $collection->canais     =   $lista;
         $collection->save();
 
         Session::flash('message','Collection editada com sucesso');
         return Redirect::to('collections');
+    }
+
+
+
+    /* metodo para adicionar
+    url nova para a lista de canais */
+    public function url(Request $request){
+
+        $urlCanal = str_replace("https://www.youtube.com/channel/"
+            , "", $request->get('novaURL'));
+       $canal = Youtube::getChannelById($urlCanal);
+        //se canal já existe não faça nada
+        if(Channel::find($urlCanal)){
+
+        }else{
+            Channel::create(
+                [
+                    'url' => $urlCanal,
+                    'nomeCanal' => $canal->snippet->title,
+                ]
+            );
+        }
+
+        Session::flash('message','Collection editada com sucesso');
+        return View::make('collections.url');
     }
 
     /**
@@ -164,5 +196,8 @@ class CollectionController extends Controller
     public function destroy(Collection $collection)
     {
         //
+        $collection->delete();
+        Session::flash('mesage','deletado com sucesso');
+        return Redirect::to('collections');
     }
 }

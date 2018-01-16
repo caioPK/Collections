@@ -24,16 +24,11 @@
 
                                 <div class="panel uk-width-1-4 uk-padding-remove">
                                     <div class="uk-flex  uk-flex-middle uk-flex-left ">
-                                        <a class="uk-icon-link uk-padding-remove " id="novocanal" uk-icon="icon: plus-circle"
+                                        <a class="uk-icon-link uk-padding-remove " id="novocanal"  uk-toggle uk-icon="icon: plus-circle"
                                            onclick="insere(
                                                    '{{$xml->body->outline->outline[ $loop->index ]['xmlUrl']}}',
                                                    '{{$xml->body->outline->outline[ $loop->index ]['text']}}'
                                                    );"></a>
-                                        <a class="uk-icon-link uk-padding-remove uk-margin-small-left"  uk-icon="icon: trash"
-                                           onclick="this.disabled=true;insere(
-                                                   '{{$xml->body->outline->outline[ $loop->index ]['xmlUrl']}}',
-                                                   '{{$xml->body->outline->outline[ $loop->index ]['text']}}'
-                                                   )"></a>
                                     </div>
                                 </div>
                             </div>
@@ -46,9 +41,7 @@
                     <div class="uk-padding-remove"> CANAIS ADICIONADOS</div>
                     <div class="uk-panel uk-overflow-auto uk-height-small">
                         <ul id="listCanal" class="uk-list uk-list-divider ">
-                            <li >
 
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -74,8 +67,8 @@
             document.getElementById('hlista').value = listastring;
         }
         function insere (a,b) {
-
-            listastring = listastring + "@" + a.replace ("https://www.youtube.com/feeds/videos.xml?channel_id=", "");
+            var x = a.replace("https://www.youtube.com/feeds/videos.xml?channel_id=", "");
+            listastring = listastring + "@" + x;
 
             var ul = document.getElementById("listCanal");
             var li = document.createElement("li");

@@ -17,14 +17,12 @@
 
 </head>
 <body>
-    <div class="uk-container-large uk-padding-large">
-        <a class="uk-icon-link uk-padding-small uk-float-right"  href="{{ URL::to('collections') }}" uk-icon="icon: home; ratio:2;"></a>
+<div class="uk-container-medium uk-padding-small">
+    <a class="uk-icon-link  uk-float-right"  href="{{ URL::to('/') }}" uk-icon="icon: arrow-left; ratio:3;"></a>
 
-        <div class=" uk-box-shadow-large uk-padding-large">
+        @yield('content')
 
-            @yield('content')
-        </div>
-    </div>
+</div>
 
 </body>
 </html>

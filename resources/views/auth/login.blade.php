@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.bordeless')
 
 @section('content')
     <div class="uk-section">

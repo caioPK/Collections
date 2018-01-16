@@ -21,7 +21,8 @@ class XmlController extends Controller
      */
     public function create()
     {
-        return view('xml.create');
+        $flag = xml::find(Auth::user()->id);
+        return view('xmls.create',['flag'=>$flag]);
     }
 
     /**
@@ -43,7 +44,7 @@ class XmlController extends Controller
 
         //Encurtando a url para apenas o ID do canal no youtube
         foreach ($lista->body->outline->outline as $canal) {
-            $urlCanal = str_replace("https://www.youtube.com/feeds/videos.xml?channel_id="
+            $urlCanal = str_replace("https://www.youtube.com/feeds/videos.xmls?channel_id="
                 , "", $canal[0]['xmlUrl']);
 
             //se canal já existe não faça nada
@@ -65,16 +66,6 @@ class XmlController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \youCollections\xml  $xml
-     * @return \Illuminate\Http\Response
-     */
-    public function show(xml $xml)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -82,9 +73,15 @@ class XmlController extends Controller
      * @param  \youCollections\xml  $xml
      * @return \Illuminate\Http\Response
      */
+    public function editar()
+    {
+        return view('xmls.edit');
+    }
+
+
     public function edit(xml $xml)
     {
-        //
+        return view('xmls.edit');
     }
 
     /**
@@ -96,11 +93,18 @@ class XmlController extends Controller
      */
     public function update(Request $request, xml $xml)
     {
-        $xml->idUser    = Auth::user()->id;
-        $xml->filePath  = $request->file('file')->store('xmls');
-        $xml->save();
 
-        Session::flash('message', 'XML salvo com sucesso');
+        $oldxml = xml::find(Auth::user()->id);
+        if($oldxml->delete()){
+            $xmlnovo = new xml();
+            $xmlnovo->idUser    = Auth::user()->id;
+            $xmlnovo->filePath  = $request->file('file')->store('xmls');
+            $xmlnovo->save();
+            Session::flash('message', 'XML salvo com sucesso');
+            return Redirect::to('collections');
+        }
+
+        Session::flash('message', 'XML não foi salvo com sucesso');
         return Redirect::to('collections');
     }
 

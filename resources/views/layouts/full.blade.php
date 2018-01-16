@@ -11,9 +11,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>YouColletions</title>
 
-    <!-- Styles<link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->    <link href="{{ asset('css/extra.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/extra.css') }}" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.36/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.36/js/uikit-icons.min.js"></script>
@@ -23,7 +23,7 @@
 <div class="uk-offcanvas-content ">
     <!-- menu toggle botão-->
     <div uk-sticky>
-        <span class="" uk-icon="icon: menu; ratio: 2" uk-toggle="target: #menu"></span>
+        <span class="uk-icon-button" uk-icon="icon: menu; ratio: 2" uk-toggle="target: #menu"></span>
     </div>
 
     <div id="menu" uk-offcanvas="mode: reveal; overlay: true">
@@ -86,58 +86,31 @@
         {{ csrf_field() }}
     </div>
 
+
+    <!--Modal inicial -->
     <div id="modal-sections" class="uk-flex-top" uk-modal>
         <div class="uk-modal-dialog">
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <div class="uk-modal-header">
-                <h2 class="uk-modal-title">Adicionar</h2>
+                <h2 class="uk-modal-title uk-text-center uk-text-bold">Adicionar</h2>
             </div>
-            <div class="uk-modal-body">
-                <p>O que deseja adicionar?.</p>
-                <a class="uk-button  uk-button-secondary " href="#modal-xml" uk-toggle>XML</a>
-                <a class="uk-button  uk-button-secondary " href="#modal-url" uk-toggle>URL</a>
-            </div>
+            <div class="modal-body uk-padding-small">
+                <div class="uk-panel uk-height-small uk-padding-small">
+                    <div class="uk-flex uk-flex-column uk-flex-middle">
+                        <div class="uk-panel uk-margin-small-bottom">
+                            <h2>O que deseja adicionar?</h2>
+                        </div>
+                        <div class="uk-panel uk-flex uk-child-width-1-2\@s">
+                            <a id="refXML" class="uk-button  uk-button-large uk-button-secondary uk-margin-small-right " href="{{url('xmls/'. Auth::user()->id .'/edit')}}" >XML</a>
+                            <a class="uk-button uk-button-large uk-button-secondary " href="{{url('collections/url')}}">URL</a>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="uk-modal-footer uk-text-right">
-                <button class="uk-button uk-button-danger uk-modal-close" type="button">Cancel</button>
-                <button class="uk-button uk-button-primary" type="button">Save</button>
             </div>
         </div>
     </div>
 
-    <div id="modal-url"  class="uk-flex-top" uk-modal>
-        <div class="uk-modal-dialog">
-            <button class="uk-modal-close-default" type="button" uk-close></button>
-            <div class="uk-modal-header">
-                <h2 class="uk-modal-title">Adicionar nova URL</h2>
-            </div>
-            <div class="uk-modal-body">
-                <p>Digite aqui sua nova URL.</p>
-            </div>
-
-            <div class="uk-modal-footer uk-text-right">
-                <button class="uk-button uk-button-danger uk-modal-close" type="button">Cancel</button>
-                <button class="uk-button uk-button-primary" type="button">Save</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-xml" class="uk-flex-top" uk-modal>
-        <div class="uk-modal-dialog">
-            <button class="uk-modal-close-default" type="button" uk-close></button>
-            <div class="uk-modal-header">
-                <h2 class="uk-modal-title">Adicionar novo XML</h2>
-            </div>
-            <div class="uk-modal-body">
-                <p>O que deseja adicionar?.</p>
-            </div>
-
-            <div class="uk-modal-footer uk-text-right">
-                <button class="uk-button uk-button-danger uk-modal-close" type="button">Cancel</button>
-                <button class="uk-button uk-button-primary" type="button">Save</button>
-            </div>
-        </div>
-    </div>
 
 
     <div class="uk-section uk-section-default uk-padding-remove">
