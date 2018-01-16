@@ -34,23 +34,30 @@
             <div class="uk-flex-column">
                 <!--<button class="uk-offcanvas-close" type="button" uk-close></button>-->
                 <!--    AVATAR E NOME        -->
-                <div class="uk-section-primary uk-flex-column ">
-                    <div class="uk-flex ">
+                <div class="uk-section-primary uk-flex-column uk-flex-right  " height="150px">
+                    <div class="uk-flex uk-padding-remove ">
 
-                            <div class="uk-flex uk-flex-column uk-flex-center uk-margin-small-left">
-                                <a class="uk-margin-small-bottom uk-margin-small-left" href="{{ URL::to('collections') }}" uk-icon="icon: home"></a>
-                                <a class="uk-margin-small-left" href="#" uk-icon="icon: cog"></a>
-                            </div>
 
-                        <div class="panel-content uk-align-center">
-                            <img class="uk-border-circle  uk-margin-small-bottom" src="https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k_400x400.jpg"
-                                 alt="Avatar" height="120" width="120" align="center">
+                                <div class="uk-padding-remove uk-section-default uk-flex uk-flex-column uk-flex-center uk-margin-small-left">
+                                    <a class="uk-margin-small-bottom " href="{{ URL::to('collections') }}" uk-icon="icon: home"></a>
+                                    <a class="uk-margin-small-bottom" href="#" uk-icon="icon: cog"></a>
+                                    <a class="uk-icon" uk-icon="icon: sign-out" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+
+                                    </a>
+                                </div>
+
+
+                        <div class="panel-content uk-align-center uk-padding-remove ">
+                            <img class="uk-border-rounded  uk-padding-remove" src="https://pbs.twimg.com/profile_images/831993825635745796/HnVmB0-k_400x400.jpg"
+                                 alt="Avatar" height="100" width="100" align="center">
                         </div>
 
                     </div>
 
-                    <div class="uk-flex uk-flex-center uk-padding-remove" >
-                        <p class="uk-padding-remove" align="center">{{Auth::user()->name}}</p>
+                    <div class="uk-flex uk-flex-center uk-padding-remove uk-text-center" >
+                        <p class="uk-padding-remove uk-text-bold" align="center">{{Auth::user()->name}}</p>
                     </div>
                 </div>
 
@@ -59,9 +66,9 @@
                 <div class="uk-nav-header uk-nav-center"><a href="{{ URL::to('collections') }}" >COLLECTIONS</a></div>
                 <hr>
 
-                    <div class="uk-section-primary uk-padding-remove ">
-                        <div class="uk-container uk-padding-small">
-                            <ul class="uk-nav uk-nav-default ">
+                    <div class="uk-section-primary uk-padding-remove uk-height-medium uk-overflow-auto">
+                        <div class="uk-container uk-padding-small ">
+                            <ul class="uk-nav uk-nav-default  ">
 
                                     @yield('menu')
 
@@ -75,6 +82,8 @@
                 <a class="uk-button  uk-button-secondary uk-width-1-1" href="#modal-sections" uk-toggle>ADD</a>
             </div>
         </div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
     </div>
 
     <div id="modal-sections" class="uk-flex-top" uk-modal>
@@ -131,7 +140,7 @@
     </div>
 
 
-    <div class="uk-section uk-section-default">
+    <div class="uk-section uk-section-default uk-padding-remove">
         @yield('content')
     </div>
 </div>

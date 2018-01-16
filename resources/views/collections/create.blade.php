@@ -1,87 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Look! I'm CRUDding</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container">
+@extends('layouts.box')
 
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ URL::to('nerds') }}">Nerd Alert</a>
+
+@section('content')
+
+    <div class="uk-padding-remove">
+        <h1 class="uk-text-center ">NOME DA COLEÇÃO</h1>
+        {{ Form::open(array('url' => 'collections')) }}
+        <div class="uk-flex uk-flex-center ">
+            {{ Form::text('name','COLEÇÃO', array('class' => 'uk-input uk-form-width-large uk-form-large')) }}
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="{{ URL::to('collections') }}">View All Nerds</a></li>
-            <li><a href="{{ URL::to('collections/create') }}">Create a Nerd</a>
-        </ul>
-    </nav>
-
-    <h1>Create a Nerd</h1>
-
-    <!-- if there are creation errors, they will show here -->
-
-
-    {{ Form::open(array('url' => 'collections')) }}
-
-    <div class="form-group">
-        {{ Form::label('name', 'Nome') }}
-        {{ Form::text('name','nome', array('class' => 'form-control')) }}
-    </div>
 
         <input type="hidden" name="hlista" id="hlista", value="teste">
 
+        <div class="form-group ">
 
-    <div class="form-group">
+            <div class="uk-child-width-expand@s uk-text-center uk-margin-small-top" uk-grid>
+                <div class="panel-content">
+                    <div class="uk-padding-remove">CANAIS DISPONIVEIS</div>
+                    <div class="uk-panel uk-overflow-auto uk-height-small uk-align-right">
+                        @foreach($xml->body->outline->outline as $canal)
+                            <div class="uk-flex  uk-flex-middle uk-padding-remove">
+                                <div class="panel uk-width-3-4 uk-text-break"> {{$canal[0]['text']}} </div>
 
-        <!-- tabela a lista de canais e lsita de canais adicionados-->
-        <table class="table" id="canais">
-            <thead>
-                <th> Canais</th>
-                <th>Coleção</th>
-            </thead>
-            <tbody>
-                   <tr>
-                       <td>
-                      <!-- Celula que contem uma tabela com a lista de canais -->
-                       <table class="table">
-                           <THEAD><th>Nome</th></THEAD>
-                           <tbody>
+                                <div class="panel uk-width-1-4 uk-padding-remove">
+                                    <div class="uk-flex  uk-flex-middle uk-flex-left ">
+                                        <a class="uk-icon-link uk-padding-remove " id="novocanal" uk-icon="icon: plus-circle"
+                                           onclick="insere(
+                                                   '{{$xml->body->outline->outline[ $loop->index ]['xmlUrl']}}',
+                                                   '{{$xml->body->outline->outline[ $loop->index ]['text']}}'
+                                                   );"></a>
+                                        <a class="uk-icon-link uk-padding-remove uk-margin-small-left"  uk-icon="icon: trash"
+                                           onclick="this.disabled=true;insere(
+                                                   '{{$xml->body->outline->outline[ $loop->index ]['xmlUrl']}}',
+                                                   '{{$xml->body->outline->outline[ $loop->index ]['text']}}'
+                                                   )"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
-                           @foreach($xml->body->outline->outline as $canal)
-                               <tr>
-                                   <td>{{$canal[0]['text']}}</td>
-                                   <td>
-                                       <a class="btn btn-small btn-success" id="novocanal"
-                                          onclick="this.disabled=true;insere(
-                                                  '{{$xml->body->outline->outline[ $loop->index ]['xmlUrl']}}',
-                                                  '{{$xml->body->outline->outline[ $loop->index ]['text']}}'
-                                          )">Add</a>
-                                   </td>
-                               </tr>
-                           @endforeach
-                           </tbody>
-                       </table>
-                       </td>
-                       <td>
-                           <!--  lsita de canais adicionados-->
-                           <ul id="listCanal">
-                               <li >
-                                   <p id="listaurl"></p>
-                               </li>
-                           </ul>
-                       </td>
-                   </tr>
+                <!--  lsita de canais adicionados-->
+                <div class="panel-content ">
+                    <div class="uk-padding-remove"> CANAIS ADICIONADOS</div>
+                    <div class="uk-panel uk-overflow-auto uk-height-small">
+                        <ul id="listCanal" class="uk-list uk-list-divider ">
+                            <li >
 
-            </tbody>
-        </table>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="uk-margin uk-flex uk-flex-center" uk-margin>
+            <button type="submit" class="uk-button uk-button-primary uk-width-3-4" onclick="enviar(); ">Criar Coleção</button>
+        </div>
     </div>
-    <input type="submit" value="Criar Coleção" class="btn btn-primary" onclick="enviar()">
 
 
     {{ Form::close() }}
 
-</div>
     <script type="text/javascript">
 
 
@@ -92,12 +76,11 @@
         function insere (a,b) {
 
             listastring = listastring + "@" + a.replace ("https://www.youtube.com/feeds/videos.xml?channel_id=", "");
-            document.getElementById("listaurl").innerHTML =listastring;
+
             var ul = document.getElementById("listCanal");
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(b));
             ul.appendChild(li);
         }
     </script>
-</body>
-</html>
+@endsection

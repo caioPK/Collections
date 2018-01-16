@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
+use PhpParser\Node\Expr\Array_;
 use youCollections\Channel;
 use youCollections\Collection;
 use youCollections\videosAssistido;
@@ -112,7 +113,7 @@ class CollectionController extends Controller
 
 
         //return View::make('collections.show')->with('videos',$videos);
-        return \view('collections.show',['videos'=>$videos, 'nomes'=>$nomes]);
+        return view('collections.show',['videos'=>$videos, 'nomes'=>$nomes,'collec'=>$collection]);
     }
 
     /**
@@ -123,7 +124,16 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection)
     {
-        return View::make('collections.edit')->with('collec',$collection);
+        $lista = str_replace(',,','', $collection->canais);
+        $canais = explode(',',$lista);
+        $nomes=[];
+        $i=0;
+        foreach ($canais as $canal){
+            $nomes[$i] = DB::table('channels')->where('idCanal', $canal)->value('nomeCanal');
+            $i++;
+        }
+
+        return view('collections.edit',['collec'=>$collection, 'nomes'=>$nomes]);
     }
 
     /**

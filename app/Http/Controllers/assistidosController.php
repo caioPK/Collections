@@ -6,6 +6,7 @@ use Alaouy\Youtube\Facades\Youtube;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use youCollections\Collection;
 use youCollections\videosAssistido;
 
 class assistidosController extends Controller
@@ -53,6 +54,7 @@ class assistidosController extends Controller
      */
     public function show($id, Request $request)
     {
+        $collecs = Collection::where('idUser', Auth::user()->id)->get();
         if(videosAssistido::find($id)){
 
             if(videosAssistido::where('idVideo',$id)->where('idUser',Auth::user()->id)->first()){
@@ -76,7 +78,7 @@ class assistidosController extends Controller
         }
         $video = Youtube::getVideoInfo($id);
 
-        return View::make('collections/video.show')->with('dados',$video);
+        return view('collections/video.show',['dados'=>$video, 'collec'=>$collecs]);
     }
 
     /**
