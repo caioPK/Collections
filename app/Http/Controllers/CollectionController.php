@@ -58,13 +58,15 @@ class CollectionController extends Controller
     {
         //recuperando string com url dos canais e tranformando em array
         $lista = str_replace(',,','', $request->get('hlista'));
-        $urls = explode('@',$lista);
+        $urls = explode('@',$request->get('hlista'));
 
         //recuprando apenas os ids de canais para salvar
         $canais = '';
+        var_dump($urls);
         foreach ($urls as $url){
             $canal =  DB::table('channels')->where('url', $url)->value('idCanal');
             $canais = $canal.",".$canais;
+
         }
 
         //salvando a nova coleção
@@ -75,7 +77,8 @@ class CollectionController extends Controller
         $collec->save();
 
         Session::flash('message','Collection criada com sucesso');
-        return Redirect::to('collections/create');
+        return Redirect::to('collections');
+        /// return Redirect::to('collections/create');
     }
 
     /**

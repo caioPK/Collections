@@ -41,7 +41,7 @@
                     <div class="uk-padding-remove"> CANAIS ADICIONADOS</div>
                     <div class="uk-panel uk-overflow-auto uk-height-small">
                         <ul id="listCanal" class="uk-list uk-list-divider ">
-
+                            <span id="teste"></span>
                         </ul>
                     </div>
                 </div>
@@ -69,7 +69,8 @@
         function insere (a,b) {
             var x = a.replace("https://www.youtube.com/feeds/videos.xml?channel_id=", "");
             listastring = listastring + "@" + x;
-
+            document.getElementById('hlista').value = listastring;
+            document.getElementById('teste').innerHTML = listastring;
             var ul = document.getElementById("listCanal");
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(b));

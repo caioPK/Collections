@@ -44,8 +44,7 @@ class XmlController extends Controller
 
         //Encurtando a url para apenas o ID do canal no youtube
         foreach ($lista->body->outline->outline as $canal) {
-            $urlCanal = str_replace("https://www.youtube.com/feeds/videos.xmls?channel_id="
-                , "", $canal[0]['xmlUrl']);
+            $urlCanal = str_replace("https://www.youtube.com/feeds/videos.xml?channel_id=", "", $canal[0]['xmlUrl']);
 
             //se canal já existe não faça nada
             if(Channel::find($urlCanal)){
@@ -100,9 +99,35 @@ class XmlController extends Controller
             $xmlnovo->idUser    = Auth::user()->id;
             $xmlnovo->filePath  = $request->file('file')->store('xmls');
             $xmlnovo->save();
+
+
+            $file = Storage::get($xmlnovo->filePath);
+            $lista = simplexml_load_string($file);
+
+            //Encurtando a url para apenas o ID do canal no youtube
+            foreach ($lista->body->outline->outline as $canal) {
+                $urlCanal = str_replace("https://www.youtube.com/feeds/videos.xml?channel_id=", "", $canal[0]['xmlUrl']);
+
+                //se canal já existe não faça nada
+                if(Channel::find($urlCanal)){
+
+                }else{
+                    Channel::create(
+                        [
+                            'url' => $urlCanal,
+                            'nomeCanal' => $canal[0]['text'],
+                        ]
+                    );
+                }
+
+
+            }
             Session::flash('message', 'XML salvo com sucesso');
             return Redirect::to('collections');
+
         }
+
+
 
         Session::flash('message', 'XML não foi salvo com sucesso');
         return Redirect::to('collections');
