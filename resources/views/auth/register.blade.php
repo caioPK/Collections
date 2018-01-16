@@ -8,14 +8,14 @@
 
                 <div class="uk-padding uk-box-shadow-large">
 
-                    <h2>Register</h2>
+                    <h2>Registre-se</h2>
 
                     <form class="uk-form-stacked" role="form" method="POST" action="{{ route('register') }}">
 
                         {{ csrf_field() }}
 
                         <div>
-                            <label class="uk-form-label">Name</label>
+                            <label class="uk-form-label">Nome</label>
                             <input id="name" type="text" class="uk-input{{ $errors->has('name') ? ' uk-form-danger' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
                             @if ($errors->has('name'))
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="uk-margin">
-                            <label class="uk-form-label">Email Address</label>
+                            <label class="uk-form-label">Email </label>
                             <input id="email" type="email" class="uk-input{{ $errors->has('email') ? ' uk-form-danger' : '' }}" name="email" value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="uk-margin">
-                            <label class="uk-form-label">Password</label>
+                            <label class="uk-form-label">Senha</label>
                             <input id="password" type="password" class="uk-input{{ $errors->has('password') ? ' uk-form-danger' : '' }}" name="password" value="{{ old('password') }}" required>
 
                             @if ($errors->has('password'))
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="uk-margin">
-                            <label class="uk-form-label">Confirm Password</label>
+                            <label class="uk-form-label">Confirme a senha</label>
                             <input id="password_confirmation" type="password" class="uk-input{{ $errors->has('password_confirmation') ? ' uk-form-danger' : '' }}" name="password_confirmation" value="{{ old('password_confirmation') }}" required>
 
                             @if ($errors->has('password_confirmation'))
@@ -59,9 +59,9 @@
                         </div>
 
                         <div class="uk-margin">
-                            <button class="uk-button uk-button-primary" type="submit" name="button">Register</button>
+                            <button class="uk-button uk-button-primary" type="submit" name="button">Registrar</button>
                             <a class="uk-float-right" href="{{ route('login') }}">
-                                Already have an account?
+                                Já tem uma conta?
                             </a>
                         </div>
 

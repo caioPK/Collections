@@ -22,17 +22,16 @@
                         By <a>{{$dados->snippet->channelTitle}}</a> at <span>{{$dados->snippet->publishedAt}}</span>
                     </p>
                     <panel class="uk-float-right">
-                        <button class="secondary-button pure-button">Não lida</button>
-                        <button class="secondary-button pure-button">Ler depois</button>
-                        <button class="secondary-button pure-button">Share</button>
                     </panel>
                 </div>
             </div>
 
-            <div class="email-content-body">
-                <br><iframe src='http://www.youtube.com/embed/{{$dados->id}}' width="640" height="360" allowfullscreen>
-                </iframe><br>
-                <p> <pre class="descricao"> {{$dados->snippet->description}} </pre><br> </p>
+            <div class="uk-panel uk-width-large">
+                <div class="uk-flex uk-flex-column uk-flex-middle">
+                    <br>
+                    <iframe uk-responsive src='http://www.youtube.com/embed/{{$dados->id}}' width="1224" height="720" allowfullscreen> </iframe>
+                    <br>
+                </div>
             </div>
 
     </div>

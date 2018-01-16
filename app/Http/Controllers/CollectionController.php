@@ -77,7 +77,7 @@ class CollectionController extends Controller
         $collec->save();
 
         Session::flash('message','Collection criada com sucesso');
-        return Redirect::to('collections');
+        return Redirect::to('collections/create');
         /// return Redirect::to('collections/create');
     }
 

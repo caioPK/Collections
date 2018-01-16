@@ -3,6 +3,15 @@
 
 @section('content')
 
+    @if (Session::has('message'))
+        <script type="text/javascript">
+        UIkit.modal.alert( {{ Session::get('message') }}
+        );
+    </script>
+
+    @endif
+
+
     <div class="uk-padding-remove">
         <h1 class="uk-text-center ">NOME DA COLEÇÃO</h1>
         {{ Form::open(array('url' => 'collections')) }}
@@ -55,9 +64,9 @@
             <button type="submit" class="uk-button uk-button-primary uk-width-3-4" onclick="enviar(); ">Criar Coleção</button>
         </div>
     </div>
-
-
     {{ Form::close() }}
+
+
 
     <script type="text/javascript">
 

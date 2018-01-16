@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.bordeless')
 
 @section('content')
     <div class="uk-section">
@@ -8,7 +8,7 @@
 
                 <div class="uk-padding uk-box-shadow-large">
 
-                    <h2>Reset Password</h2>
+                    <h2>Redefinir senha</h2>
 
                     @if (session('status'))
                         <div class="uk-alert-primary" uk-alert>
@@ -21,7 +21,7 @@
                         {{ csrf_field() }}
 
                         <div>
-                            <label class="uk-form-label">Email Address</label>
+                            <label class="uk-form-label">Email </label>
                             <input id="email" type="email" class="uk-input{{ $errors->has('email') ? ' uk-form-danger' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                             @if ($errors->has('email'))
@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="uk-margin">
-                            <button class="uk-button uk-button-primary" type="submit" name="button">Send Password Reset Link</button>
+                            <button class="uk-button uk-button-primary" type="submit" name="button">Enviar link para redefinir senha</button>
                         </div>
 
                     </form>

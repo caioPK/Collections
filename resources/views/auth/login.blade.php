@@ -15,7 +15,7 @@
                         {{ csrf_field() }}
 
                         <div>
-                            <label class="uk-form-label">Email Address</label>
+                            <label class="uk-form-label">Email</label>
                             <input id="email" type="email" class="uk-input{{ $errors->has('email') ? ' uk-form-danger' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                             @if ($errors->has('email'))
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="uk-margin">
-                            <label class="uk-form-label">Password</label>
+                            <label class="uk-form-label">Senha</label>
                             <input id="password" type="password" class="uk-input{{ $errors->has('password') ? ' uk-form-danger' : '' }}" name="password" value="{{ old('password') }}" required>
 
                             @if ($errors->has('password'))
@@ -37,13 +37,13 @@
                         </div>
 
                         <div class="uk-margin">
-                           <label><input class="uk-checkbox" type="checkbox" name="remember"{{ old('remember') ? ' checked' : '' }}> Remember me</label>
+                           <label><input class="uk-checkbox" type="checkbox" name="remember"{{ old('remember') ? ' checked' : '' }}> Lembrar de mim</label>
                         </div>
 
                         <div class="uk-margin">
                             <button class="uk-button uk-button-primary" type="submit" name="button">Login</button>
                             <a class="uk-float-right" href="{{ route('password.request') }}">
-                                Forgot Your Password?
+                                Esqueceu a senha?
                             </a>
                         </div>
 
